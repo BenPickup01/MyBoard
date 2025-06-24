@@ -1,0 +1,41 @@
+body {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+
+}
+
+#myCanvas {
+    display: block;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+#canvasContainer {
+    border: 10px solid black;
+    width: 30vw;
+    height: 30vw;
+}
+
+#colourButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #007bff;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 0;       /* Ensure no inherited spacing */
+    font-size: 0;         /* Prevent any text from affecting size */
+}
