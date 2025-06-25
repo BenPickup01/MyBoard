@@ -29,7 +29,6 @@ function resizeCanvas() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.scale(dpr, dpr);
 
-    updateButtonSizeAndPosition();
     drawGrid(); 
 }
 
@@ -139,32 +138,32 @@ addEventListener('mouseup', e => {
 
 
 function keyPressHandler(e) {
-      var evtobj = window.event ? window.event : e;
+    var evtobj = e;
 
-      // Ctrl + Z (Undo)
-      if (evtobj.ctrlKey && evtobj.keyCode == 90) {
-          if (undoPointer > 0) {
+    // Ctrl + Z (Undo)
+    if (evtobj.ctrlKey && evtobj.keyCode == 90) {
+        if (undoPointer > 0) {
             undoPointer -= 1;
-            // Load the previous grid state into the active 'grid' variable
             grid = JSON.parse(JSON.stringify(storedStates[undoPointer]));
             drawGrid();
-          }
-      }
-      // Ctrl + Y (Redo)
-      if (evtobj.ctrlKey && evtobj.keyCode == 89) {
-          if (undoPointer < storedStates.length - 1) { 
-              // Load the next grid state into the active 'grid' variable
-              grid = JSON.parse(JSON.stringify(storedStates[undoPointer]));
-              drawGrid();
-          }
-      }
+            e.preventDefault(); 
+        }
+    }
+    // Ctrl + Y (Redo)
+    if (evtobj.ctrlKey && evtobj.keyCode == 89) {
+        if (undoPointer < storedStates.length - 1) { 
+            undoPointer += 1; 
+            grid = JSON.parse(JSON.stringify(storedStates[undoPointer]));
+            drawGrid();
+            e.preventDefault(); 
+        }
+    }
 }
 
 // Initial setup
 window.addEventListener("resize", resizeCanvas);
 window.addEventListener("DOMContentLoaded", resizeCanvas);
-
+window.addEventListener('keydown', keyPressHandler);
 // Call resizeCanvas immediately after script execution to ensure initial render
 resizeCanvas();
 
-updateButtonSizeAndPosition()
